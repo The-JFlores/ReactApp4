@@ -13,13 +13,14 @@ function VotingContent() {
   const { votes, dispatch } = useVotes();
 
   return (
-    <main className="p-8">
+    <main className="min-h-screen flex flex-col items-center p-8">
       {/* Main application heading */}
-      <h1 className="text-4xl font-bold mb-6">
+      <h1 className="text-5xl font-bold mb-8 text-gray-800">
         Tech Voting App
       </h1>
 
       {/* Render all vote cards */}
+      <div className="w-full max-w-md">
       {votes.map((item) => (
         <VoteCard
           key={item.id}
@@ -33,6 +34,7 @@ function VotingContent() {
           }
         />
       ))}
+      </div>
     </main>
   );
 }
