@@ -12,12 +12,23 @@ import {
 function VotingContent() {
   const { votes, dispatch } = useVotes();
 
+  // Calculate total votes
+const totalVotes = votes.reduce(
+  (total, item) => total + item.votes,
+  0
+);
+
   return (
     <main className="min-h-screen flex flex-col items-center p-8">
       {/* Main application heading */}
       <h1 className="text-5xl font-bold mb-8 text-gray-800">
         Tech Voting App
       </h1>
+
+      {/* Display total vote count */}
+<p className="text-xl text-gray-600 mb-8">
+  Total Votes: {totalVotes}
+</p>
 
       {/* Render all vote cards */}
       <div className="w-full max-w-md">
