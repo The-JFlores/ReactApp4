@@ -3,7 +3,15 @@
 
 import VoteCard from "@/components/VoteCard";
 
-export default function Home() {
+import {
+  VoteProvider,
+  useVotes,
+} from "@/context/VoteContext";
+
+// Component that displays all voting cards
+function VotingContent() {
+  const { votes, dispatch } = useVotes();
+
   return (
     <main className="p-8">
       {/* Main application heading */}
@@ -11,24 +19,29 @@ export default function Home() {
         Tech Voting App
       </h1>
 
-      {/* Reusable voting cards */}
-      <VoteCard
-        title="React"
-        votes={10}
-        onVote={() => alert("Vote added")}
-      />
-
-      <VoteCard
-        title="Next.js"
-        votes={7}
-        onVote={() => alert("Vote added")}
-      />
-
-      <VoteCard
-        title="TypeScript"
-        votes={5}
-        onVote={() => alert("Vote added")}
-      />
+      {/* Render all vote cards */}
+      {votes.map((item) => (
+        <VoteCard
+          key={item.id}
+          title={item.title}
+          votes={item.votes}
+          onVote={() =>
+            dispatch({
+              type: "VOTE",
+              payload: item.id,
+            })
+          }
+        />
+      ))}
     </main>
+  );
+}
+
+// Main application component
+export default function Home() {
+  return (
+    <VoteProvider>
+      <VotingContent />
+    </VoteProvider>
   );
 }
