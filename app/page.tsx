@@ -12,6 +12,11 @@ import {
 function VotingContent() {
   const { votes, dispatch } = useVotes();
 
+  // Sort items by highest votes
+const sortedVotes = [...votes].sort(
+  (a, b) => b.votes - a.votes
+);
+
   // Calculate total votes
 const totalVotes = votes.reduce(
   (total, item) => total + item.votes,
@@ -32,7 +37,7 @@ const totalVotes = votes.reduce(
 
       {/* Render all vote cards */}
       <div className="w-full max-w-md">
-      {votes.map((item) => (
+      {sortedVotes.map((item) => (
         <VoteCard
           key={item.id}
           title={item.title}
